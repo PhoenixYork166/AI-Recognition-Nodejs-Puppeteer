@@ -1,30 +1,3 @@
-<h2>Download this fun AI Node.js app</h2>
-
-```bash
-git clone https://github.com/PhoenixYork166/AI-Recognition-Nodejs-Puppeteer.git;
-```
-
-<h2>Start using this Node.js app</h2>
-
-```bash
-npm install;
-```
-
-```bash
-npm start;
-```
-
-<h2>Live React Server on Cloud:</h2>
-<h2>https://ai-recognition-frontend.onrender.com/</h2>
-
-<h2>Live Web Server on Cloud:</h2>
-<h2>https://ai-recognition-backend.onrender.com/</h2>
-
-<h2>Feel free to test my Node.js app using rootDir/.env</h2>
-<h2>The API Key PAT is free of charge</h2>
-<h2>My Cloud SaaS Public IP rules are also set</h2>
-<h2>So please do not worry about my Cloud Web Service instance security</h2>
-
 <h3>Technologies used in this Node.js app</h3>
 <ul>
     <li>1. Node.js</li>
@@ -73,9 +46,33 @@ npm start;
 <img src="./assets/Session-Cookie.png" alt="session-cookies" />
 <img src="./assets/Express-Session-Cookies.jpeg" alt="express-session-cookies" />
 
+<h2>Download this fun AI Node.js app</h2>
+
+```bash
+git clone https://github.com/PhoenixYork166/AI-Recognition-Nodejs-Puppeteer.git;
+```
+
+<h2>Start using this Node.js app</h2>
+
+```bash
+npm install;
+```
+
+```bash
+npm start;
+```
 
 <img alt="REST-API" src="./images/ai-fullstack-nodeapi.jpeg" style="aspect-ratio: 16/9; margin: 0 auto; max-width: 20vw;">
 <br>
+
+<h2>Live Web Server on Cloud:</h2>
+<h2>https://ai-recognition-backend.onrender.com/</h2>
+
+<h2>Feel free to test my Node.js app using rootDir/.env</h2>
+<h2>The API Key PAT is free of charge</h2>
+<h2>My Cloud SaaS Public IP rules are also set</h2>
+<h2>So please do not worry about my Cloud Web Service instance security</h2>
+
 <h2>What if you want to explore this Node.js app more with hands-on?</h2>
 <h2>You may edit projectFolder/.env parameters</h2>
 <h2>You may also edit Postgres connection string using Knex.js inside</h2>
