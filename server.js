@@ -1,8 +1,10 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const db = require('./util/database');
 const fetch = require('node-fetch');
 
@@ -35,14 +37,15 @@ console.log(`\n\nprocess.env.POSTGRES_HOST:\n${process.env.POSTGRES_HOST}\n\npro
 const corsOptions = {
     origin: isProduction ? 'https://ai-recognition-frontend.onrender.com' : 'http://localhost:3000',
     credentials: true, // to support session cookies
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+    methods: ['GET', 'POST', 'PUT', 'OPTIONS', 'HEAD'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
 // const corsOptions = {
 //     origin: process.env.NODE_ENV === 'production' ? 'https://ai-recognition-frontend.onrender.com' : 'http://localhost:3000',
 //     credentials: true, // to support session cookies
 //     methods: ['GET', 'POST', 'PUT', 'DELETE']
+//     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 // };
 
 app.use(bodyParser.json({ limit: '100mb' }));

@@ -27,7 +27,7 @@ exports.handleSignin = (req, res) => {
     .select('email', 'hash')
     .where('email', '=', email)
     .from('login')
-    .then(response => {
+    .then((response) => {
 
         // Comparing users' password input from req.body.password
         // to server-side fetched json
@@ -38,12 +38,12 @@ exports.handleSignin = (req, res) => {
             // return SELECT * FROM users WHERE email = req.body.email;
             // Will give a user json object
             db.select('*').from('users').where('email', '=', email)
-            .then(user => {
+            .then((user) => {
                 if (user.length) {
                     // Store user info in session => return res.status(200).json(user[0]);
                     req.session.user = user[0]; 
 
-                    res.cookie('userData', JSON.stringify({
+                    return res.status(200).cookie('userData', JSON.stringify({
                         id: user[0].id,
                         email: user[0].email
                     }), {
@@ -51,11 +51,10 @@ exports.handleSignin = (req, res) => {
                         httpOnly: false, // Now accessible to React frontend
                         secure: process.env.NODE_ENV === 'production',
                         sameSite: 'None' // Necessary for cross-origin/cross-site requests
-                    });
+                    }).json(req.session.user);
 
-                    return res.status(200).json(req.session.user);
                 } else {
-                    return res.status(404).json({ 
+                    return res.status(400).json({ 
                         success: false,
                         status: { code: 400 }, 
                         error: 'user not found' 
@@ -78,7 +77,7 @@ exports.handleSignin = (req, res) => {
             });
         }
     })
-    .catch(err => {
+    .catch((err) => {
         console.log(`\nError loging in: ${err}\n`);
         res.status(400).json({ 
             status: { code: 400 }, 

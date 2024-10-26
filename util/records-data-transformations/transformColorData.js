@@ -4,6 +4,7 @@
           user_id: Number,
           image_record_id: 1,
           image_url: VARCHAR(255),
+          base64_backend: TEXT,
           metadata: JSON,
           date_time: timestamp with time zone, // Unique field 2024-10-17 16:34:16.635 +0800
           raw_hex: VARCHAR(7), // image_record_id: 1
@@ -15,6 +16,7 @@
           user_id: Number,
           image_record_id: 1,
           image_url: VARCHAR(255),
+          base64_backend: TEXT,
           metadata: JSON,
           date_time: timestamp with time zone, // Unique field 2024-10-17 16:34:16.635 +0800
           raw_hex: VARCHAR(7), // image_record_id: 1
@@ -26,6 +28,7 @@
           user_id: Number,
           image_record_id: 2,
           image_url: VARCHAR(255),
+          base64_backend: TEXT,
           metadata: JSON{""},
           date_time: timestamp with time zone, // Unique field 2024-10-17 16:34:16.635 +0800
           raw_hex: VARCHAR(7), // image_record_id: 2
@@ -37,6 +40,7 @@
           user_id: Number,
           image_record_id: 2,
           image_url: VARCHAR(255),
+          base64_backend: TEXT,
           metadata: JSON{""},
           date_time: timestamp with time zone, // Unique field 2024-10-17 16:34:16.635 +0800
           raw_hex: VARCHAR(7), // image_record_id: 2
@@ -54,6 +58,7 @@
           // Only need 1 metadata => Based on UNIQUE date_time
           metadata: JSON{"fileMetaDataHash"}, 
           image_record_id: 1,
+          base64_backend: TEXT,
           //Unqiue entry based on TIME 2024-10-17 16:34:16.635
           date_time: timestamp with time zone, 
           // => rax_hex[] based on image_record_id: 1
@@ -71,6 +76,7 @@
           //Unqiue entry based on TIME 2024-10-17 16:34:16.635
           date_time: timestamp with time zone, 
           image_record_id: 2,
+          base64_backend: TEXT,
           // => rax_hex[] based on image_record_id: 2
           raw_hex: ["VARCHAR(7)", "VARCHAR(7)"], 
           // => rax_hex[] based on image_record_id: 2
@@ -95,6 +101,7 @@ const transformColorData = (rawData) => {
   if (!acc[dateTime][recordId]) {
     acc[dateTime][recordId] = {
     metadata: cur.metadata, // Assuming the first metadata encountered is used
+    base64_backend: cur.base64_backend,
     date_time: dateTime,
     image_record_id: recordId,
     raw_hex: [],

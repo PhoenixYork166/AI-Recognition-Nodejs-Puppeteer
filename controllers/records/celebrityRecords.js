@@ -4,6 +4,7 @@ const { printDateTime } = require('../../util/printDateTime');
 const { performance } = require('perf_hooks');
 const db = require('../../util/database');
 const { saveBase64Image } = require('../../util/saveBase64Image');
+const { imageUrlToBase64 } = require('../../util/imageUrlToBase64');
 
 // Express Request Handler POST route http://localhost:3001/records/save-user-celebrity
 exports.saveUserCelebrity = (req, res) => {
@@ -33,8 +34,6 @@ exports.saveUserCelebrity = (req, res) => {
     let base64Metadata = (typeof metadata === 'string') ? metadata : JSON.stringify(metadata);
 
     const start = performance.now();
-
-    
     
     return db('celebrity_record')
     .insert({

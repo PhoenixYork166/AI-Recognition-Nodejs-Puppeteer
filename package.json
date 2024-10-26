@@ -20,8 +20,10 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.20.3",
+    "connect-redis": "^7.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -32,6 +34,7 @@
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.12",
     "pg": "^8.11.0",
-    "puppeteer": "^23.6.0"
+    "puppeteer": "^23.6.0",
+    "redis": "^4.7.0"
   }
 }

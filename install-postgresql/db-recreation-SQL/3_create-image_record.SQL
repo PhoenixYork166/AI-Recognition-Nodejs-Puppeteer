@@ -2,7 +2,9 @@ CREATE TABLE image_record (
 	id serial PRIMARY KEY,
 	user_id integer NOT NULL, 
 	image_url VARCHAR(255) NOT NULL,
-	metadata TEXT NOT NULL, 
+	metadata TEXT, 
+	image_blob TEXT,
+	--base64_backend TEXT,
 	--metadata JSON NOT NULL,
 	date_time timestamp with time zone NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users(id)

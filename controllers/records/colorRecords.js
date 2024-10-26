@@ -5,6 +5,7 @@ const { performance } = require('perf_hooks');
 const db = require('../../util/database');
 const { saveBase64Image } = require('../../util/saveBase64Image');
 const { transformColorData } = require('../../util/records-data-transformations/transformColorData');
+const { imageUrlToBase64 } = require('../../util/imageUrlToBase64');
 
 /* From Frontend React
     // table `image_record`
@@ -111,36 +112,28 @@ Batch2
     })
 */
 // Express Request Handler POST route http://localhost:3000/records/save-user-color
-exports.saveUserColor = (req, res) => {
+exports.saveUserColor = async (req, res) => {
   printDateTime();
   
-  const { userId, imageBlob, imageRecord, imageDetails } = req.body;
+  const { userId, imageUrl, imageRecord, imageDetails } = req.body;
   // Type safety without using TypeScript
 
   const date_time = new Date().toISOString();
   const requestHandlerName = `rootDir/controllers/records/colorRecords.js\nsaveColor()`;
+  console.log(`\nExpress RequestHandler: ${requestHandlerName}`)
 
-  let userIdInt = parseInt(userId, 10);
-  if (isNaN(userIdInt)) {
-    return res.status(400).json({ error: 'Invalid userId, must be a number' });
+  if (!userId || typeof userId !== 'number') {
+    return res.status(400).json({ success: false, status:{ code: 400}, error: `Invalid userId: ${userId}`})
   }
 
+  if (!imageUrl || typeof imageUrl !== 'string') {
+    return res.status(400).json({ success: false, status:{ code: 400}, error: `Invalid imageUrl: ${imageUrl}`})
+  }
+  
   // console.log(`\nimageRecord.metadata:\n`, imageRecord.metadata, `\n`);
-  // const base64Metadata = JSON.stringify(imageRecord.metadata);
 
-  let base64Metadata;
-  if (typeof imageRecord.metadata === 'string') {
-    try {
-      base64Metadata = JSON.stringify(imageRecord.metadata);
-    } catch (err) {
-      return res.status(400).json({ error: 'Invalid JSON format in metadata' });
-    }
-  } else {
-    JSON.stringify(imageRecord.metadata); // This will throw if metadata is not valid JSON
-    base64Metadata = imageRecord.metadata;
-  }
-
-  console.log(`\ndateTime: ${date_time}\ntypeof base64Metadata: `, typeof base64Metadata, `\n`);
+  // const base64Backend = await imageUrlToBase64(imageUrl);
+  // console.log(`\nbase64Backend: ${base64Backend}`, `\n`);
 
   const start = performance.now();
   
@@ -149,10 +142,10 @@ exports.saveUserColor = (req, res) => {
 
   db.transaction((trx) => {
     trx.insert({
-      user_id: userIdInt,
-      image_url: imageRecord.imageUrl,
-      // metadata: base64Metadata,
-      metadata: base64Metadata,
+      user_id: userId,
+      image_url: imageUrl,
+      metadata: imageRecord.metadata,
+      // base64_backend: base64Backend,
       date_time: date_time
     })
     .into('image_record')
@@ -173,33 +166,33 @@ exports.saveUserColor = (req, res) => {
       })
       .then(() => {
         // Committing the transaction only when all inserts are successful
-        console.log('Transaction commit');
+        console.log(`\nTransaction committed!`);
         trx.commit();
       })
       .then(() => {
         console.log('\nProceeding to save base64 image.\n');
         // Allow Promise chaining by return
-        return saveBase64Image(base64Metadata, userIdInt);
+        return saveBase64Image(imageRecord.metadata, userId);
       })
       .then((saveBase64Results) => {
-        const end = performance.now();
-        const duration = end - start;
-        console.log(`\nPerformance for saveBase64Image locally to Node.js server is: ${duration}ms\n`);
+        const end2 = performance.now();
+        const duration2 = end2 - start;
+        console.log(`\nPerformance for saveBase64Image locally to Node.js server is: ${duration2}ms\n`);
         
         res.status(200).json({
           success: true,
           status: { code: 200 },
-          message: `Transaction completed successfully!`,
-          performance: `Performance: ${duration}ms`
+          message: `saveBase64Image OK!`,
+          performance: `Performance: ${duration2}ms`
         });
       })
       .catch((err) => {
-        console.error(`Error in transaction or saving image:\n`, err);
+        console.error(`Error in saving image:\n`, err);
         trx.rollback();
         res.status(500).json({
           success: false,
           status: { code: 500 },
-          message: `Failed during transaction or image saving`,
+          message: `Failed during Postgres transaction or saving image to Node.js server/user_images`,
           error: err.toString()
         });
       });
@@ -274,6 +267,7 @@ exports.getUserColor = (req, res) => {
       'ir.id as image_record_id',
       'ir.image_url',
       'ir.metadata',
+      // 'ir.base64_backend',
       'ir.date_time',
       'id.raw_hex',
       'id.hex_value',
