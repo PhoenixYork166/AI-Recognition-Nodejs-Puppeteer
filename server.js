@@ -52,9 +52,9 @@ app.use(cookieParser());
 app.use(session({
     secret: 'secret', // Secret key to sign the session ID cookie
     resave: false, // Do not force the session to be saved back to session store
-    saveUninitialized: true, // Do not force an uninitialized session to be saved to the store
+    saveUninitialized: false, // true = Do not force an uninitialized session to be saved to the store
     cookie: { 
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
         // secure: false, // Set to true in production if using HTTPS
         httpOnly: true, // Prevent client-side scripting attacks
         expires: true, // Session cookie will be removed when user closes browser
