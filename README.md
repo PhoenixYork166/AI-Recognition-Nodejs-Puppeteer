@@ -1,6 +1,6 @@
-# AI-Recognition-API
+# AI-Recognition with Clarifai AI
+# Web Scraping with Node.js Puppeteer
 
-![Node.js](https://qph.cf2.quoracdn.net/main-qimg-5450bd03a18170c9dec7e904ce7029e8)
 
 ## This Node.js app allows Register feature
 
@@ -14,9 +14,9 @@
 
 ## Server-side Node.js + Postgres15
 
-# 1. Download this fun AI Node app
+# 1. Download this fun AI Node.js app
 ```bash
-git clone https://github.com/PhoenixYork166/AI-Recognition-Nodejs.git;
+git clone https://github.com/PhoenixYork166/AI-Recognition-Nodejs-Puppeteer.git;
 ```
 
 # 2. Start using this Node app
@@ -25,7 +25,7 @@ npm install;
 ```
 
 ```bash
-npm run dev;
+npm start;
 ```
 
 # 3. What if you do not have all the necessary Dev dependencies on your mac OS to start this Node app?
@@ -80,14 +80,18 @@ bash ./database-recreation/1_create_table-users.sh;
 2_create_table-users.sql
 ```
 
-## iii. Re-creating a table called 'login' in our database for storing bcrypt password hashes
+## iii. Manually re-creating postgres table 'users' in our database for storing bcrypt password hashes => run PostgreSQL inside rootDir/install-postgresql/db-recreation-SQL
 ```bash
-bash ./database-recreation/4_create_table-login.sh;
+1_create-users.SQL
 ```
-## or you may run SQL statements declared in 3_create_table-login.sql
+
+## table 'login'
 ```bash
 2_create_table-login.sql
 ```
+
+## Follow through all the .SQL files for Postgres db re-creation
+## except 15_drop-FUNCTION-and-TRIGGERS
 
 ## iv. Verify that we've successfully created a table named 'users' in our database
 ```bash
