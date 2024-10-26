@@ -12,8 +12,11 @@ exports.saveUserCelebrity = (req, res) => {
     console.log(`\nJust received an HTTP request for:\n${requestHandlerName}\n`);
     
     const { userId, celebrityName, imageUrl, imageBlob, metadata, dateTime } = req.body;
+    // const date_time = new Date().toISOString();
+    console.log(`\nRequest Handler: `, requestHandlerName, `\n`, `userId: `, userId, `\ncelebrityName: `, celebrityName, `\nimageUrl: `, imageUrl, `\nimageBlob: `, imageBlob, `\nmetada: `, metadata, `\ndateTime: `, dateTime);
+    console.log(`\ntypeof userId: `, typeof userId, `\ntypeof celebrityName: `, typeof celebrityName, `\ntypeof imageUrl: `, typeof imageUrl, `\ntypeof imageBlob: `, typeof imageBlob, `\ntypeof metada: `, typeof metadata, `\ntypeof dateTime: `, typeof dateTime, `\n`);
 
-    if (!userId || !celebrityName || !imageUrl || !imageBlob || !metadata || typeof userId !== 'number' || typeof celebrityName !== 'string' || typeof imageUrl !== 'string' || typeof imageBlob !== 'string' || typeof metadata !== 'string') {
+    if (!userId || !celebrityName || !imageUrl || !imageBlob || !metadata || typeof userId !== 'number' || typeof celebrityName !== 'string' || typeof imageUrl !== 'string' || typeof imageBlob !== 'string' || typeof metadata !== 'string' || typeof dateTime !== 'string') {
         return res.status(400).json({
             success: false,
             status: { code: 400 },
@@ -31,8 +34,7 @@ exports.saveUserCelebrity = (req, res) => {
 
     const start = performance.now();
 
-    // const date_time = new Date().toISOString();
-    console.log(`\nRequest Handler: `, requestHandlerName, `\n`, `userId: `, userId, `\ncelebrityName: `, celebrityName, `\nimageUrl: `, imageUrl, `\nimageBlob: `, imageBlob, `\nmetada: `, metadata, `\ndateTime: `, dateTime);
+    
     
     return db('celebrity_record')
     .insert({

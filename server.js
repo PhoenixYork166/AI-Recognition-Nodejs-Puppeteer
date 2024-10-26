@@ -58,7 +58,7 @@ app.use(session({
         // secure: false, // Set to true in production if using HTTPS
         httpOnly: true, // Prevent client-side scripting attacks
         expires: true, // Session cookie will be removed when user closes browser
-        maxAge: 15 * 60 * 1000 // Expires after 15 min
+        maxAge: 900000 // Expires after 15 min
     } // Use `secure: true` if you are using https
 }));
 
