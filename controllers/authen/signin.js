@@ -49,8 +49,9 @@ exports.handleSignin = (req, res) => {
                     }), {
                         maxAge: 900000, // 15 min
                         httpOnly: false, // Now accessible to React frontend
-                        secure: process.env.NODE_ENV === 'production'
-                    })
+                        secure: process.env.NODE_ENV === 'production',
+                        sameSite: 'None' // Necessary for cross-origin/cross-site requests
+                    });
 
                     return res.status(200).json(req.session.user);
                 } else {
